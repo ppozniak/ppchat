@@ -19,8 +19,7 @@ class ChatApp extends React.Component {
   }
 
   componentDidMount() {
-    socket.on('update', this._update.bind(this))
-    socket.emit('update');
+    socket.on('userCount', this._update.bind(this))
     socket.on('new message', this._newMessage.bind(this));
   }
 

@@ -1,5 +1,5 @@
 var express = require('express');
-var app = require('express')();
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -19,11 +19,12 @@ http.listen(port,  function () {
 //////////////////////////////////////////////////////////////////
 // IO connection
 
-let userCount = 0;
+let connections = [];
 
 io.on('connection', function(socket) {
-  io.emit('update', ++userCount);
-  console.log('NEW CONNECTION', ' USERS ONLINE: ', userCount);
+  connections.push(socket);
+  io.emit('userCount', connections.length);
+  console.log('NEW CONNECTION', ' USERS ONLINE: ', connections.length);
 
   //1. USER LOGIN
   socket.on('user:login', function(data) {
@@ -38,7 +39,8 @@ io.on('connection', function(socket) {
 
 // IO disconnect
   socket.on('disconnect', function () {
-    io.emit('update', --userCount);
+    connections.splice(connections.indexOf(socket), 1);
+    io.emit('userCount', connections.length);
     console.log('CONNECTION LOST');
   });
 });

@@ -9,7 +9,7 @@ Still in development.
 * LogIn with username
 * Prevent bad names
 * Cookie with your username
-* Links in chat __Thanks to [react-linkify](https://www.npmjs.com/package/react-linkify)__
+* Links in chat ([react-linkify](https://www.npmjs.com/package/react-linkify))
 * Appending messages
 * LogOut
 * Anti-spam
@@ -32,9 +32,10 @@ Still in development.
 * Private messages
 * Some database
 * Get BAD WORDS from external file
+* 'instant message' for writer
 
 
-###To begin:
+### To begin:
 ```
 npm install
 gulp build
