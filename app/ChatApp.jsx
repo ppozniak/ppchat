@@ -4,6 +4,7 @@ import ChatField from './ChatField';
 import ChatInput from './ChatInput';
 import ChatLogout from './ChatLogout';
 import ChatUsers from './ChatUsers';
+// import Sound from 'react-sound';
 
 class ChatApp extends React.Component {
 
@@ -33,6 +34,11 @@ class ChatApp extends React.Component {
     socket.emit('user:login', username);
   }
 
+  _logOut() {
+    this.setState({ isLogged: false, username: '', messages: [], userCount: 0 });
+    document.cookie = "username=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  }
+
   _newMessage(data) {
       const scrollAnchor = document.getElementById('scroll-anchor');
 
@@ -52,7 +58,7 @@ class ChatApp extends React.Component {
 
         if(prevMsgUser === data.user) {
           let thisStateMsgs = this.state.messages;
-          thisStateMsgs[thisStateMsgs.length - 1].body += ( '\n' + data.msg);
+          thisStateMsgs[thisStateMsgs.length - 1].body.push(data.msg);
           this.setState({ comments: thisStateMsgs });
           scrollAnchor.scrollIntoView();
           return false;
@@ -61,17 +67,12 @@ class ChatApp extends React.Component {
       // If not, just add a new message
       let newMsg = {
         user: data.user,
-        body: data.msg,
+        body: [data.msg],
         date: `${h}:${min}:${sec}`
       };
 
       this.setState({ messages: this.state.messages.concat([newMsg]) });
       scrollAnchor.scrollIntoView();
-  }
-
-  _logOut() {
-    document.cookie = "username=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    this.setState({ isLogged: false, username: '' });
   }
 
   render() {

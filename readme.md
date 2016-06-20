@@ -1,36 +1,37 @@
-#Pp{Chat}
+# Pp{Chat}
 
 
-##Description
+## Description
 Small chat app using React, Socket.io, Express.
 Still in development.
 
-##Features
+### Features
 * LogIn with username
 * Prevent bad names
 * Cookie with your username
-* Links in chat
+* Links in chat __Thanks to [react-linkify](https://www.npmjs.com/package/react-linkify)__
 * Appending messages
 * LogOut
 * Anti-spam
 * Client-side timestamps
 * Auto-scroll
 
-##Known issues:
-* User count is not set properly after refreshing
-* Your username can be blank
+## Known issues:
+* User count is not set properly after refreshing or joining in
 * No handling of unique usernames
-* Logout doesn't work immediately
+* ~~Your username can be blank~~
+* ~~Logout doesn't work immediately~~
 
-##TODO:
+## TODO:
 * Server-side usernames handling
 * Better anti-spam system
-* Fix user count
 * Server-side timestamps
 * Better gulpfile (to handle server changes and hot-reload)
 * Improve Auto-scroll
 * Emoticons
 * Private messages
+* Some database
+* Get BAD WORDS from external file
 
 
 ###To begin:

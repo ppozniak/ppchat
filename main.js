@@ -1,8 +1,8 @@
 import ChatApp from './app/ChatApp';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
-ReactDOM.render(
+render(
   <ChatApp />,
   document.getElementById('chat')
 );

@@ -10,11 +10,11 @@ class ChatInput extends React.Component {
 
   componentDidMount() {
     const DELAY = 300;
-    var antiFlood = setInterval(() => this.setState({ canSend: true }), DELAY);
+    this.antiFlood = setInterval(() => this.setState({ canSend: true }), DELAY);
   }
 
   componentWillUnmount() {
-    clearInterval(antiFlood);
+    clearInterval(this.antiFlood);
   }
 
   _preventLong() {

@@ -16,7 +16,7 @@ class ChatLogin extends React.Component {
   render() {
     return (
       <div className="login-box">
-      <div>Login to {'Pp{chat}'}</div>
+      <div>Login to {'Pp{Chat}'}</div>
         <form onSubmit={this._handleSubmit.bind(this)}>
           <input placeholder="Enter your username..." ref={ (input) => this._username = input } />
           <input type="submit" value="Log in" />
@@ -29,13 +29,14 @@ class ChatLogin extends React.Component {
     e.preventDefault();
 
     // List of bad words
-    const BLACKLIST = ['shit', 'kurwa', 'dupa', 'chuj', 'fuck', 'pussy'],
+    const BLACKLIST = ['shit', 'fuck', 'pussy', 'kurwa', 'dupa', 'chuj', ],
           BLACKPATTERN = new RegExp('(' + BLACKLIST.join('|') + ')', 'i');
 
-        let username = this._username.value,
+        let username = this._username.value.trim(),
             isOffensive = BLACKPATTERN.test(username);
 
         if(isOffensive) alert('Your name contains bad words! You naughty boy!');
+        if(username == '') alert('Anonymous much?');
 
     if(username !== '' && !isOffensive ) {
       document.cookie = `username=${username};max-age=${1*60*60}`;
