@@ -1,41 +1,52 @@
 import React from 'react';
-import ChatLogin from './ChatLogin';
-import ChatField from './ChatField';
-import ChatInput from './ChatInput';
-import ChatLogout from './ChatLogout';
-import ChatUsers from './ChatUsers';
-// import Sound from 'react-sound';
+
+import Field from './Field';
+import Input from './Input';
+import RHS from './RHS';
 
 class ChatApp extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      isLogged: false,
       username: '',
-      userCount: 0,
+      users: [],
       messages: []
     }
+    this._newMessage = this._newMessage.bind(this);
+    this._checkAuth = this._checkAuth.bind(this);
   }
 
   componentDidMount() {
-    socket.on('userCount', this._update.bind(this))
-    socket.on('new message', this._newMessage.bind(this));
+    socket.on('MSG', this._newMessage);
+    socket.on('AUTH', this._checkAuth);
+    socket.emit('AUTH');
   }
 
-  _update(data) {
-    console.log('UserCount:', data);
-    this.setState({ userCount: data });
+  componentWillUnmount() {
+    socket.removeAllListeners('MSG');
+    socket.removeAllListeners('AUTH');
   }
 
-  _logIn(username) {
-    this.setState({ isLogged: true, username: username });
-    socket.emit('user:login', username);
+  render() {
+    return(
+      <div className="chat-wrapper">
+        <Field clientUsername={ this.state.username } msgs={ this.state.messages } />
+        <RHS clientUsername={ this.state.username } users={ this.state.users } />
+        <Input />
+      </div>
+    );
   }
 
-  _logOut() {
-    this.setState({ isLogged: false, username: '', messages: [], userCount: 0 });
-    document.cookie = "username=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  _checkAuth(response) {
+    if(!response.auth) {
+      this.context.router.transitionTo('/');
+    } else {
+      this.setState({
+        username: response.username,
+        users: response.users
+      });
+    }
   }
 
   _newMessage(data) {
@@ -63,6 +74,7 @@ class ChatApp extends React.Component {
           return false;
         }
       }
+
       // If not, just add a new message
       let newMsg = {
         user: data.user,
@@ -73,19 +85,10 @@ class ChatApp extends React.Component {
       this.setState({ messages: this.state.messages.concat([newMsg]) });
       scrollAnchor.scrollIntoView();
   }
+}
 
-  render() {
-    let chatField = this.state.isLogged ? (
-      <div className="chat-wrapper">
-        <ChatField msgs={this.state.messages} />
-        <ChatInput user={this.state.username} />
-        <ChatUsers userCount={this.state.userCount} />
-        <ChatLogout logOut={this._logOut.bind(this)} />
-      </div>
-    ) : <ChatLogin logIn={ this._logIn.bind(this) }/>
-
-    return chatField;
-  }
+ChatApp.contextTypes = {
+  router: React.PropTypes.object
 }
 
 export default ChatApp;

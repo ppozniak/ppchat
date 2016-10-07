@@ -1,0 +1,40 @@
+// CHAT INPUT
+.send__form {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: .6rem;
+  background-color: $darkpastel;
+  border-top: 1px solid $pastel;
+  
+  @include breakpoint(lg) {
+    width: 80%;
+  }
+}
+
+.send__field {
+  display: block;
+  flex-basis: 79%;
+  padding: .9rem .7rem;
+  border: 0;
+  background-color: $gray--l;
+}
+
+.send__btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  flex-basis: 18%;
+  padding: .9 .7rem;
+  border: 1px solid $pastel--d;
+  background-color: $pastel;
+  color: #fff;
+  text-transform: uppercase;
+  transition: background-color .3s ease-in;
+  cursor: pointer;
+  &:hover {
+    background-color: $pastel--d;
+  }
+}

@@ -1,0 +1,53 @@
+@import '_functions';
+@import '_variables';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  @include breakpoint(md) {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $pastel;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  width: 95%;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.chat-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.orange {
+  color: $orange;
+}
+
+@import '_login';
+@import '_msg-field';
+@import '_rhs';
+@import '_msg-input';
+
+// ANIMATIONS
+.slide-left-appear,
+.slide-left-enter {
+  transform: translateX(-280px);
+}
+
+.slide-left-appear.slide-left-appear-active,
+.slide-left-enter.slide-left-enter-active {
+  transform: translateX(0);
+  transition: transform 350ms ease-out;
+}

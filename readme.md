@@ -1,43 +1,56 @@
 # Pp{Chat}
-
-
-## Description
-Small chat app using React, Socket.io, Express.
+Chat app using React, React-router, Socket.io, Express and Redux.
+Made only for training purposes.
 Still in development.
 
-### Features
-* LogIn with username
-* Prevent bad names
-* Cookie with your username
+Redux at the moment serves no purpose, but will get to that in a while.
+
+## Features
+* New design
+* Login with username
 * Links in chat ([react-linkify](https://www.npmjs.com/package/react-linkify))
 * Appending messages
-* LogOut
 * Anti-spam
 * Client-side timestamps
 * Auto-scroll
+* Some random names as default
+* Users list
 
 ## Known issues:
-* User count is not set properly after refreshing or joining in
-* No handling of unique usernames
-* ~~Your username can be blank~~
-* ~~Logout doesn't work immediately~~
+* No integration with localStorage/cookies/session (You'll have to log in every time)
+* Logout not implemented
+* Users list won't update
+* RHS for mobile not yet implemented
+* Autoscroll works even when you scroll up 😡
 
 ## TODO:
-* Server-side usernames handling
-* Better anti-spam system
+* Better anti-spam system (Server-side too)
 * Server-side timestamps
-* Better gulpfile (to handle server changes and hot-reload)
+* Avatars
 * Improve Auto-scroll
 * Emoticons
 * Private messages
+* Rooms
 * Some database
 * Get BAD WORDS from external file
 * 'instant message' for writer
 
 
+_Node version: 6.2.1_
 ### To begin:
 ```
 npm install
 gulp build
-npm node server.js
+npm start  // Starts both gulp and node server.js
+```
+
+Gulp tasks
+```
+gulp // Defaults to gulp watch
+gulp build
+gulp sass
+gulp build
+gulp watch
+gulp files
+gulp clean
 ```
