@@ -1,6 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Match, Miss, Redirect } from 'react-router';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -11,19 +15,21 @@ import Login from './Login';
 
 const store = createStore(reducer);
 
-// store.subscribe(() => {
-//   console.log(store.getState());
-// })
+console.log(store);
 
-const App = () => (
+store.subscribe(() => {
+  console.log(store.getState());
+})
+
+const App = (
   <Provider store={ store }>
-    <BrowserRouter>
-      <div>
-        <Match exactly pattern="/" component={ Login } />
-        <Match pattern="/chat" component={ ChatApp } />
-      </div>
-    </BrowserRouter>
+    <Router>
+      <Switch>
+        <Route exactly path="/chat" component={ ChatApp } />
+        <Route exactly path="/" component={ Login } />
+      </Switch>
+    </Router>
   </Provider>
-)
+);
 
-render(<App />, document.getElementById('chat'));
+render(App, document.getElementById('chat'));

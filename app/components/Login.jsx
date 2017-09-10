@@ -73,7 +73,8 @@ class Login extends React.Component {
         username: response.username
       });
       socket.emit('LOGIN', response.username);
-      this.context.router.transitionTo('/chat');
+      this.props.history.push('/chat');
+
       //@TODO: Add to local storage
       //@TODO: Dispatch new user
     } else {

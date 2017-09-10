@@ -6,10 +6,10 @@ var express = require('express'),
     fs = require('fs');
 
 // Get list of the bad words
-var BAD_WORDS = fs.readFile('./badwords.txt', 'utf8', (err, data) => {
-  if(err) throw err;
-  return data.split(',');
-});
+// var BAD_WORDS = fs.readFile('./badwords.txt', 'utf8', (err, data) => {
+//   if(err) throw err;
+//   return data.split(',');
+// });
 
 // Serve static files
 app.use('/public', express.static('public'));
@@ -49,7 +49,7 @@ io.on('connection', function(socket) {
   socket.on('LOGIN_CHECK', function(username){
     let error = 0;
 
-    if(_isOffensive(username, BAD_WORDS)) error = 1;
+    // if(_isOffensive(username, BAD_§WORDS)) error = 1;
     if(users.indexOf(username) > -1) error = 2;
     if(username.length === '' || username.length < 3) error = 3;
 
@@ -101,8 +101,8 @@ io.on('connection', function(socket) {
   });
 });
 
-function _isOffensive(str, BAD_WORDS) {
+// function _isOffensive(str, BAD_WORDS) {
   // let regexp = new RegExp(BAD_WORDS.join('|'), 'i');
   // return str.match(regexp);
-  return false;
-}
+  // return false;
+// }

@@ -40,7 +40,7 @@ class ChatApp extends React.Component {
 
   _checkAuth(response) {
     if(!response.auth) {
-      this.context.router.transitionTo('/');
+      this.props.history.push('/');
     } else {
       this.setState({
         username: response.username,
